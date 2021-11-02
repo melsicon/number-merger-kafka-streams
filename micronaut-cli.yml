@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: de.melsicon.examples
+testFramework: spock
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, gradle, http-client, java, java-application, jib, kafka, kubernetes, logback, lombok, management, micrometer, micrometer-prometheus, netty-server, readme, shade, spock, yaml]
