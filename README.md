@@ -24,7 +24,8 @@ start kafka
     kafka-server-start kafka-config/server.properties &
 
 
-change build.gradle and k8s.yml to fit your docker credentials
+Change the docker image path in your build.gradle and k8s.yml. 
+Login to your Docker Desktop application.
 
     ./gradlew clean build jib
 
