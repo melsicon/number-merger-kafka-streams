@@ -36,29 +36,28 @@ public class MergerStream {
         source1.peek((k, v) -> log.info("Message received source1: {} {}", k,v));
         source2.peek((k, v) -> log.info("Message received source2: {} {}", k,v));
 
-        ValueJoiner<String, String, Double> valueJoiner = createJoiner();
-        KStream<String, Double> result = source1.join(source2, valueJoiner, JoinWindows.of(5000L));
+        ValueJoiner<String, String, String> valueJoiner = createJoiner();
+        KStream<String, String> result = source1.join(source2, valueJoiner, JoinWindows.of(1800000L));  //1.8mn ms = 30min
         result.to(OUTPUT_TOPIC);
         return source1;
     }
 
-    private ValueJoiner<String, String, Double> createJoiner() {
-        ValueJoiner<String, String, Double> valueJoiner = (value1, value2) -> {
+    private ValueJoiner<String, String, String> createJoiner() {
+        return (value1, value2) -> {
             try {
                 Double sum = Double.parseDouble(value1) + Double.parseDouble(value2);
                 log.info(value1 + " + " + value2 + " = "+ sum);
-                return sum; //String.valueOf(sum);
+                return sum.toString(); //String.valueOf(sum);
             } catch (NumberFormatException e) {
                 log.warn("Parsing Fehler im ValueJoiner: " + e.getMessage());
-                return 999.9; //"Something went wrong Parsing.";
+                return "999.9"; //"Something went wrong Parsing.";
             }
         };
-       return valueJoiner;
     }
 
 
     private ValueJoiner<String, String, Double> createJoinedObject() {
-        ValueJoiner<String, String, Double> valueJoiner = (value1, value2) -> {
+        return (value1, value2) -> {
             try {
                 Double sum = Double.parseDouble(value1) + Double.parseDouble(value2);
                 log.info(value1 + " + " + value2 + " = "+ sum);
@@ -68,6 +67,5 @@ public class MergerStream {
                 return 999.9; //"Something went wrong Parsing.";
             }
         };
-        return valueJoiner;
     }
 }

@@ -49,6 +49,10 @@ java {
 
 jib {
     to {
-        image = "docker.io/akracht/number-merger-kafka-streams"
+        image = "docker.io/${dockerHubUser}/number-merger-kafka-streams"
+        auth {
+            username = dockerHubUser
+            password = dockerHubPassword
+        }
     }
 }

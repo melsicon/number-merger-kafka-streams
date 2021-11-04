@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: "number-merger-kafka-streams"
-          image: "docker.io/akracht/number-merger-kafka-streams"
+          image: "docker.io/{{DockerHubUserName}}/number-merger-kafka-streams"
           ports:
             - name: http
               containerPort: 8080
