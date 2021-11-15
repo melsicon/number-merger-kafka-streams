@@ -17,8 +17,8 @@ micronaut:
 #kafka.bootstrap.servers: localhost:9092
 kafka:
   bootstrap:
-    servers: host.docker.internal:9092
-    #servers: localhost:9092
+    #servers: host.docker.internal:9092
+    servers: localhost:9092
 
 kubernetes:
   client:

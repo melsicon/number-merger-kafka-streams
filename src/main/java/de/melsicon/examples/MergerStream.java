@@ -37,7 +37,7 @@ public class MergerStream {
         source2.peek((k, v) -> log.info("Message received source2: {} {}", k,v));
 
         ValueJoiner<String, String, String> valueJoiner = createJoiner();
-        KStream<String, String> result = source1.join(source2, valueJoiner, JoinWindows.of(1800000L));  //1.8mn ms = 30min
+        KStream<String, String> result = source1.join(source2, valueJoiner, JoinWindows.of(5000L));  //1.8mn ms = 30min
         result.to(OUTPUT_TOPIC);
         return source1;
     }
