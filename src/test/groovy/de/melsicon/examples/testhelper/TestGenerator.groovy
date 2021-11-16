@@ -1,9 +1,6 @@
 package de.melsicon.examples.testhelper
 
 import groovy.util.logging.Slf4j
-import io.micronaut.context.annotation.Requires
-import io.micronaut.context.event.StartupEvent
-import io.micronaut.runtime.event.annotation.EventListener
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
@@ -15,7 +12,6 @@ class TestGenerator {
     KafkaTestTopicsProducer producer
 
 
-    //@EventListener
     void generateNumbers(){
         def samplesProducerOne = [
                 '1': '2',
@@ -35,7 +31,5 @@ class TestGenerator {
             log.info("Producer 1 sent key,value -> {}, {}", key, val)
             log.info("Producer 2 sent key,value -> {}, {}", key, samplesProducerTwo.get(key))
         }
-
-
     }
 }
