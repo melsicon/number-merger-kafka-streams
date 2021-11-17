@@ -13,6 +13,8 @@ import org.apache.kafka.streams.kstream.ValueJoiner;
 
 import java.util.Properties;
 
+import static de.melsicon.examples.CustomValueJoiner.createJoiner;
+
 @Slf4j
 @Factory
 public class MergerStream {
@@ -40,32 +42,5 @@ public class MergerStream {
         KStream<String, String> result = source1.join(source2, valueJoiner, JoinWindows.of(5000L));  //1.8mn ms = 30min
         result.to(OUTPUT_TOPIC);
         return source1;
-    }
-
-    private ValueJoiner<String, String, String> createJoiner() {
-        return (value1, value2) -> {
-            try {
-                Double sum = Double.parseDouble(value1) + Double.parseDouble(value2);
-                log.info(value1 + " + " + value2 + " = "+ sum);
-                return sum.toString(); //String.valueOf(sum);
-            } catch (NumberFormatException e) {
-                log.warn("Parsing Fehler im ValueJoiner: " + e.getMessage());
-                return "999.9"; //"Something went wrong Parsing.";
-            }
-        };
-    }
-
-
-    private ValueJoiner<String, String, Double> createJoinedObject() {
-        return (value1, value2) -> {
-            try {
-                Double sum = Double.parseDouble(value1) + Double.parseDouble(value2);
-                log.info(value1 + " + " + value2 + " = "+ sum);
-                return sum; //String.valueOf(sum);
-            } catch (NumberFormatException e) {
-                log.warn("Parsing Fehler im ValueJoiner: " + e.getMessage());
-                return 999.9; //"Something went wrong Parsing.";
-            }
-        };
     }
 }
